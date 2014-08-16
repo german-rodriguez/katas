@@ -45,6 +45,7 @@
    luego el segundo de cada una, luego el tercero, etc.
    Restricciones: interleave"
   [s1 s2]
+  (for [i (range(if(< (count s1) (count s2)) (count s1) (count s2)))] (concat [(nth s1 i)] [(nth s2 i)])) 
   )
 
 (defn retrieve-caps
@@ -58,6 +59,7 @@
    solamente si alguno de los parametros son true, pero no todos son true. En otro
    caso debera retornar false"
   [& xs]
+  (if (and (= (contains? xs true)) (= (contains? xs false))) true false)
   )
 
 (defn zip-map
