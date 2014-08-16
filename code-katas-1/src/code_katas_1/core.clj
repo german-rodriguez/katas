@@ -13,11 +13,14 @@
   (if (= (contains? m k) true) (true? (= (get m k) nil)) false)
   )
 
-(defn range
-  "Escribir una funcion que cree una lista de enteros en un rango dado.
+(defn rango
+ "Escribir una funcion que cree una lista de enteros en un rango dado.
    Restricciones: range"
-  [start end]
-  )
+ [rengarStart rengarEnd]
+ (println rengarStart)
+ (conj rengarStart)
+ (if (< rengarStart (- rengarEnd 1)) (rango (+ rengarStart 1) rengarEnd) "End"))
+
 
 (defn compress-sequence
   "Escribir una funcion que elimine los duplicados consecutivos
