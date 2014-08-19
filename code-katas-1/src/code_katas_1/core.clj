@@ -4,6 +4,7 @@
   "Escribir una funcion que retorne solamente los numeros impares de
    una secuencia"
   [s]
+  (for [variableIterativa s :when (= (rem variableIterativa 2) 1)] variableIterativa)
   )
 
 (defn nil-key                                  
@@ -38,15 +39,18 @@
   "Escribir una funcion que parta una secuencia en dos partes
    Restricciones: split-at"
   [length s]
+  [(take s) (drop s)]
   )
 
-(defn inter-two
+(defn inter-two                                  
   "Escribir una funcion que reciba dos secuencias y retorne el primero de cada una,
    luego el segundo de cada una, luego el tercero, etc.
    Restricciones: interleave"
   [s1 s2]
-  (for [i (range(if(< (count s1) (count s2)) (count s1) (count s2)))] (concat [(nth s1 i)] [(nth s2 i)])) 
-  )
+  (defn fruta [lista devolver] (if (empty? lista) devolver (fruta (rest lista) (conj devolver (first lista)))))
+  (fruta
+  (for [variableQueItera (range(if(< (count s1) (count s2)) (count s1) (count s2)))] (concat [(nth s1 variableQueItera)] [(nth s2 variableQueItera)])
+    ) [])
 
 (defn retrieve-caps
   "Escribir una funcion que reciba un string y devuelva un nuevo string conteniendo
@@ -54,17 +58,20 @@
   [text]
   )
 
-(defn find-truth
+(defn find-truth                                 
   "Escribir una funcion que tome un numero variable de booleans, y devuelva true
    solamente si alguno de los parametros son true, pero no todos son true. En otro
    caso debera retornar false"
   [& xs]
-  (if (and (= (contains? xs true)) (= (contains? xs false))) true false)
-  )
+  (if (and (some true? xs) (some false? xs)) true false)
+)
 
-(defn zip-map
+(defn zip-map                                    
   "Escribir una funcion que reciba un vector de claves y un vector de valores, y
    construya un mapa a partir de ellos.
    Restricciones: zipmap"
   [k v]
-  )
+  (defn frutaDicc [dicc devolver] (if (empty? dicc) devolver (frutaDicc (rest dicc) (conj devolver (first dicc)))))
+(clojure.set/map-invert (frutaDicc (for [i (range(if(< (count k) (count v)) (count k) (count v)))] {(nth v i) (nth k i)})  
+   {})))
+
