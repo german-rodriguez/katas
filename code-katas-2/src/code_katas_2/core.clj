@@ -8,11 +8,22 @@
   )
 
 
-(defn search
+(defn search 
   "Dado un numero cualquiera de secuencias, cada una ya ordenada de menor a mayor, encontrar el numero
    mas chico que aparezca en todas las secuencias, las secuencias pueden ser infinitas."
   [& seqs]
-  )
+
+  (if 
+    (or (= (first (sort (map first seqs)))
+           (last (sort (map first seqs)))))
+    
+    (first (sort (map first seqs)))
+    (recur
+      (for [i seqs]
+        (if (= (reduce min (map first seqs)) (first i))
+          (rest i)
+          i))))
+)
 
 
 (defn intercalar
@@ -20,7 +31,14 @@
    retorne una nueva coleccion donde el valor es insertado intercalado cada dos argumentos
    que cumplan el predicado"
   [predicado valor secuencia]
+  (lazy-seq
+  (if (and (first secuencia) (second secuencia))
+    (if (predicado (first secuencia) (second secuencia))
+      (concat [(first secuencia)] [valor] (intercalar predicado valor (rest secuencia)))
+      (concat [(first secuencia)] (intercalar predicado valor (rest secuencia))))
+    (when (not (= (first secuencia) nil)) (concat [(first secuencia)]))  
   )
+    ))
 
 
 (defn tartamudeo
