@@ -5,6 +5,8 @@
   "Escribir una funcion que acepte una funcion parcial con cantidad de argumentos desconocida,
    retornar una funcion equivalente de n argumentos"
   [f]
+  
+  (fn HashtagFuncion [& args] (reduce #(%1 %2) f args))
   )
 
 
@@ -49,7 +51,7 @@
    cada nuevo elemento es el elemento anterior comprimido."
   [secuencia]
  
-  (defn fruta [numero sec cont lista]
+  (fn fruta [numero sec cont lista]
     (if (and (= nil numero) (empty? sec)) 
       lista 
       (if (= numero (first sec)) 
